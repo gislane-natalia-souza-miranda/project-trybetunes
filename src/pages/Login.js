@@ -17,7 +17,7 @@ class Login extends React.Component {
   // Pega o que foi digitado no input e atualiza o estado.
   onInputChange = ({ target }) => {
     const { name } = target;
-    const value = target.type === 'checkbox' ? target.checked : target.value; // https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/String/trim
+    const value = target.type === 'checkbox' ? target.checked : target.value;
     this.setState({ [name]: value });
   }
 
@@ -25,7 +25,7 @@ class Login extends React.Component {
   isLoginButtonDisabled = () => {
     const { name } = this.state;
     const MINIMO_CARACTERES = 3;
-    return name.trim().length < MINIMO_CARACTERES;
+    return name.trim().length < MINIMO_CARACTERES; // https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/String/trim
   }
 
   onLoginButtonClick = () => {
@@ -46,6 +46,7 @@ class Login extends React.Component {
     if (!loading) {
       return (
         <div data-testid="page-login">
+          <h1> Faça seu login </h1>
           <forms onSubmit={ (event) => event.preventDefault() }>
             {/* Parar submit do form: https://stackoverflow.com/a/39841238 */}
 
