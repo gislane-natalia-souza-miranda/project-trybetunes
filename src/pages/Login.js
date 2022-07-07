@@ -47,7 +47,7 @@ class Login extends React.Component {
       return (
         <div data-testid="page-login">
           <h1> Faça seu login </h1>
-          <forms onSubmit={ (event) => event.preventDefault() }>
+          <form onSubmit={ (event) => event.preventDefault() }>
             {/* Parar submit do form: https://stackoverflow.com/a/39841238 */}
 
             Nome:
@@ -68,7 +68,7 @@ class Login extends React.Component {
               Entrar
             </button>
 
-          </forms>
+          </form>
         </div>);
     }
     return <Loading />;

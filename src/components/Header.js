@@ -44,7 +44,7 @@ class Header extends React.Component {
               Músicas Favoritas
             </Link>
             <br />
-            <Link to="/profile" data-testid="link-to-profile"> Profile </Link>
+            <Link to="/profile" data-testid="link-to-profile"> Perfil </Link>
             <br />
           </nav>
         </div>
