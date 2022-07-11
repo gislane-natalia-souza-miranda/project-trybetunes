@@ -6,6 +6,12 @@ class MusicCard extends React.Component {
     favoriteSong: false,
   }
 
+  componentDidMount = () => {
+    const { isFavoritedSong } = this.props;
+    console.log('Eu aqui', isFavoritedSong);
+    this.setState({ favoriteSong: isFavoritedSong });
+  }
+
   // Pega o que foi digitado no input e atualiza o estado.
   onInputChange = ({ target }) => {
     const { name } = target;
@@ -13,9 +19,17 @@ class MusicCard extends React.Component {
     this.setState({ [name]: value });
   }
 
-  render() {
-    const { trackName, previewUrl, trackId } = this.props;
+  componentDidUpdate = () => {
+    const { music, addFavoriteSong } = this.props;
     const { favoriteSong } = this.state;
+    if (favoriteSong) {
+      addFavoriteSong(music);
+    }
+  }
+
+  render() {
+    const { favoriteSong } = this.state;
+    const { music: { trackName, previewUrl, trackId } } = this.props;
 
     return (
       <div>
@@ -48,9 +62,9 @@ class MusicCard extends React.Component {
 }
 
 MusicCard.propTypes = {
-  trackName: PropTypes.string.isRequired,
-  previewUrl: PropTypes.string.isRequired,
-  trackId: PropTypes.number.isRequired,
+  music: PropTypes.objectOf.isRequired,
+  addFavoriteSong: PropTypes.func.isRequired,
+  isFavoritedSong: PropTypes.bool.isRequired,
 };
 
 export default MusicCard;
