@@ -2,34 +2,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 class MusicCard extends React.Component {
-  state = {
-    favoriteSong: false,
-  }
-
-  componentDidMount = () => {
-    const { isFavoritedSong } = this.props;
-    console.log('Eu aqui', isFavoritedSong);
-    this.setState({ favoriteSong: isFavoritedSong });
-  }
-
   // Pega o que foi digitado no input e atualiza o estado.
   onInputChange = ({ target }) => {
-    const { name } = target;
-    const value = target.type === 'checkbox' ? target.checked : target.value;
-    this.setState({ [name]: value });
-  }
-
-  componentDidUpdate = () => {
     const { music, addFavoriteSong } = this.props;
-    const { favoriteSong } = this.state;
-    if (favoriteSong) {
+    // const { name } = target;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    // this.setState({ [name]: value });
+    if (value) {
       addFavoriteSong(music);
     }
   }
 
   render() {
-    const { favoriteSong } = this.state;
-    const { music: { trackName, previewUrl, trackId } } = this.props;
+    const { music: { trackName, previewUrl, trackId }, isFavoritedSong } = this.props;
 
     return (
       <div>
@@ -49,7 +34,7 @@ class MusicCard extends React.Component {
           Favorita
           <input
             type="checkbox"
-            checked={ favoriteSong }
+            checked={ isFavoritedSong }
             onChange={ this.onInputChange }
             name="favoriteSong"
             data-testid={ `checkbox-music-${trackId}` }

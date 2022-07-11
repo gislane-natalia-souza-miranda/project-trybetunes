@@ -49,7 +49,13 @@ class Album extends React.Component {
       (prevState) => ({ ...prevState, loading: true }),
       async () => {
         await addSong(song);
-        this.setState((prevState) => ({ ...prevState, loading: false }));
+        this.setState(
+          (prevState) => (
+            { ...prevState,
+              loading: false,
+              favoriteSongs: [...prevState.favoriteSongs, song] }
+          ),
+        );
       },
     );
   }
@@ -59,8 +65,11 @@ class Album extends React.Component {
     this.setState(
       (prevState) => ({ ...prevState, loading: true }),
       async () => {
-        const favoriteSongs = await getFavoriteSongs() || [];
-        console.log('favoiteSongs', favoriteSongs);
+        /*  const FAVORITE_SONGS_KEY = 'favorite_songs';
+        if (!JSON.parse(localStorage.getItem(FAVORITE_SONGS_KEY))) {
+          localStorage.setItem(FAVORITE_SONGS_KEY, JSON.stringify([]));
+        } */
+        const favoriteSongs = await getFavoriteSongs();
         this.setState((prevState) => ({ ...prevState, favoriteSongs, loading: false }));
       },
     );
