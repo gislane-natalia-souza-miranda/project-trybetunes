@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import getMusics from '../services/musicsAPI';
 import MusicCard from '../components/MusicCard';
 import Loading from './Loading';
-import { addSong, getFavoriteSongs } from '../services/favoriteSongsAPI';
+import { addSong, getFavoriteSongs, removeSong } from '../services/favoriteSongsAPI';
 
 const STATE_INITIAL = {
   loading: false,
@@ -60,6 +60,25 @@ class Album extends React.Component {
     );
   }
 
+  // Atualiza loading apos executar removeSong
+  removeFavoriteSong = (song) => {
+    this.setState(
+      (prevState) => ({ ...prevState, loading: true }),
+      async () => {
+        await removeSong(song);
+        this.setState(
+          (prevState) => (
+            { ...prevState,
+              loading: false,
+              favoriteSongs: prevState.favoriteSongs.filter(
+                (favoriteSong) => favoriteSong.trackName !== song.trackName,
+              ) }
+          ),
+        );
+      },
+    );
+  }
+
   // busca lista de musicas favoritas do localStorage
   fetchFavoriteSongs = () => {
     this.setState(
@@ -109,6 +128,7 @@ class Album extends React.Component {
                 music={ music }
                 isFavoritedSong={ this.isFavoritedSong(music) }
                 addFavoriteSong={ this.addFavoriteSong }
+                removeFavoriteSong={ this.removeFavoriteSong }
               />
             ),
           ) }

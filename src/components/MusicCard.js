@@ -4,13 +4,13 @@ import PropTypes from 'prop-types';
 class MusicCard extends React.Component {
   // Pega o que foi digitado no input e atualiza o estado.
   onInputChange = ({ target }) => {
-    const { music, addFavoriteSong } = this.props;
+    const { music, addFavoriteSong, removeFavoriteSong } = this.props;
     // const { name } = target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
     // this.setState({ [name]: value });
     if (value) {
       addFavoriteSong(music);
-    }
+    } else removeFavoriteSong(music);
   }
 
   render() {
@@ -50,6 +50,7 @@ MusicCard.propTypes = {
   music: PropTypes.objectOf.isRequired,
   addFavoriteSong: PropTypes.func.isRequired,
   isFavoritedSong: PropTypes.bool.isRequired,
+  removeFavoriteSong: PropTypes.func.isRequired,
 };
 
 export default MusicCard;
